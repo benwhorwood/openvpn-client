@@ -245,6 +245,7 @@ dir="/vpn"
 auth="$dir/vpn.auth"
 cert_auth="$dir/vpn.cert_auth"
 conf="$dir/vpn.conf"
+conf_nord="$dir/vpn_nord.conf"
 cert="$dir/vpn-ca.crt"
 route="$dir/.firewall"
 route6="$dir/.firewall6"
@@ -294,6 +295,6 @@ else
     [[ -e $conf ]] || { echo "ERROR: VPN not configured!"; sleep 120; }
     [[ -e $cert ]] || grep -Eq '^ *(<ca>|ca +)' $conf ||
         { echo "ERROR: VPN CA cert missing!"; sleep 120; }
-    exec sg vpn -c "openvpn --cd $dir --config $conf \
+    exec sg vpn -c "openvpn --cd $dir --config $conf_nord \
                 ${MSS:+--fragment $MSS --mssfix}"
 fi
